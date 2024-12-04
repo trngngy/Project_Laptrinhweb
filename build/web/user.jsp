@@ -20,7 +20,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
         <style>
             .form {
-                height: 670px;
+                height: auto;
                 width: 450px;
                 background-color: #ffffff;
                 position: absolute;
@@ -32,7 +32,6 @@
                 border: 2px solid #dddddd;
                 box-shadow: 0 0 40px rgba(8, 7, 16, 0.1);
                 padding: 50px 35px;
-                margin-top: 100px;
             }
             .form * {
                 font-family: 'Poppins', sans-serif;
@@ -154,7 +153,7 @@
                                             <h1><%= loginUser.getFullName()%></h1>
                                         </li>
                                         <li>
-                                            <a href="cart.html">
+                                            <a href="cart.jsp">
                                                 <svg class="cart">
                                                 <use xlink:href="#cart"></use>
                                                 </svg>
@@ -190,8 +189,7 @@
             <div>
                 <div>
                     <div >
-                        <label for="UserID">UserID</label>
-                        <input type="text"   name="UserID" value="<%= loginUser.getUserID()%>" readonly>
+                        <input type="hidden"   name="UserID" value="<%= loginUser.getUserID()%>" readonly>
                     </div>
                     <div >
                         <label for="FullName" >FullName</label>
@@ -200,8 +198,7 @@
                 </div>
                 <div >
                     <div >
-                        <label for="Password" >Password</label>
-                        <input type="password"  name="Password" value="<%= loginUser.getPassword()%>">
+                        <input type="hidden"  name="Password" value="<%= loginUser.getPassword()%>">
                     </div>
                 </div>
                 <div>
@@ -229,5 +226,6 @@
             </div>
         </form>
     </div>
+                    
 </body>
 </html>
