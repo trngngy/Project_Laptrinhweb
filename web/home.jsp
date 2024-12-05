@@ -1,641 +1,982 @@
-<%-- 
-    Document   : user
-    Created on : Jun 15, 2024, 7:04:03 PM
-    Author     : nguye
---%>
-<%@page import="sample.user.UserDTO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
-        <title>Ministore</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="author" content="">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-        <!-- script
-        ================================================== -->
-        <script src="js/modernizr.js"></script>
+        <title>Perfume Paradise Store</title>
+        <link rel="icon" href="images/logo1.png"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://cdn.tailwindcss.com/3.3.2"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"/>
+        <style>
+
+            .responsiveFacets_sectionItemLabel:hover {
+                cursor: pointer;
+                background-color: rgba(28, 29, 24, 0.2);
+            }
+
+            .responsiveFacets_sectionItem:hover {
+                cursor: pointer;
+            }
+
+        </style>
     </head>
-    <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
-        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-        <title>Search</title>
-        <path fill="currentColor" d="M19 3C13.488 3 9 7.488 9 13c0 2.395.84 4.59 2.25 6.313L3.281 27.28l1.439 1.44l7.968-7.969A9.922 9.922 0 0 0 19 23c5.512 0 10-4.488 10-10S24.512 3 19 3zm0 2c4.43 0 8 3.57 8 8s-3.57 8-8 8s-8-3.57-8-8s3.57-8 8-8z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="user" viewBox="0 0 16 16">
-        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="cart" viewBox="0 0 16 16">
-        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-    </symbol>
-    <svg xmlns="http://www.w3.org/2000/svg" id="chevron-left" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-    </svg>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="chevron-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="cart-outline" viewBox="0 0 16 16">
-        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="quality" viewBox="0 0 16 16">
-        <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
-        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="price-tag" viewBox="0 0 16 16">
-        <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z" />
-        <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="shield-plus" viewBox="0 0 16 16">
-        <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" />
-        <path d="M8 4.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V9a.5.5 0 0 1-1 0V7.5H6a.5.5 0 0 1 0-1h1.5V5a.5.5 0 0 1 .5-.5z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="star-fill" viewBox="0 0 16 16">
-        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="star-empty" viewBox="0 0 16 16">
-        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="star-half" viewBox="0 0 16 16">
-        <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="quote" viewBox="0 0 24 24">
-        <path fill="currentColor" d="m15 17l2-4h-4V6h7v7l-2 4h-3Zm-9 0l2-4H4V6h7v7l-2 4H6Z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="facebook" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="youtube" viewBox="0 0 32 32">
-        <path fill="currentColor" d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="twitter" viewBox="0 0 256 256">
-        <path fill="currentColor" d="m245.66 77.66l-29.9 29.9C209.72 177.58 150.67 232 80 232c-14.52 0-26.49-2.3-35.58-6.84c-7.33-3.67-10.33-7.6-11.08-8.72a8 8 0 0 1 3.85-11.93c.26-.1 24.24-9.31 39.47-26.84a110.93 110.93 0 0 1-21.88-24.2c-12.4-18.41-26.28-50.39-22-98.18a8 8 0 0 1 13.65-4.92c.35.35 33.28 33.1 73.54 43.72V88a47.87 47.87 0 0 1 14.36-34.3A46.87 46.87 0 0 1 168.1 40a48.66 48.66 0 0 1 41.47 24H240a8 8 0 0 1 5.66 13.66Z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="instagram" viewBox="0 0 256 256">
-        <path fill="currentColor" d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="linkedin" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="nav-icon" viewBox="0 0 16 16">
-        <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="close" viewBox="0 0 16 16">
-        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="navbar-icon" viewBox="0 0 16 16">
-        <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
-    </symbol>
-    </svg>  
 
-    <!-- <div class="search-popup">
-          <div class="search-popup-container">
-  
-            <form role="search" method="get" class="search-form" action="">
-              <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value="" name="s" />
-              <button type="submit" class="search-submit"><svg class="search"><use xlink:href="#search"></use></svg></button>
-            </form>
-  
-            <h5 class="cat-list-title">Browse Categories</h5>
-            
-            <ul class="cat-list">
-              <li class="cat-list-item">
-                <a href="#" title="Mobile Phones">Mobile Phones</a>
-              </li>
-              <li class="cat-list-item">
-                <a href="#" title="Smart Watches">Smart Watches</a>
-              </li>
-              <li class="cat-list-item">
-                <a href="#" title="Headphones">Headphones</a>
-              </li>
-              <li class="cat-list-item">
-                <a href="#" title="Accessories">Accessories</a>
-              </li>
-              <li class="cat-list-item">
-                <a href="#" title="Monitors">Monitors</a>
-              </li>
-              <li class="cat-list-item">
-                <a href="#" title="Speakers">Speakers</a>
-              </li>
-              <li class="cat-list-item">
-                <a href="#" title="Memory Cards">Memory Cards</a>
-              </li>
-            </ul>
-  
-          </div>
-      </div>
-    --> 
-    <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
-        <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="home.jsp">
-                    <img src="images/main-logo.png" class="logo">
-                </a>
-                <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <svg class="navbar-icon">
-                    <use xlink:href="#navbar-icon"></use>
-                    </svg>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
-                    <div class="offcanvas-header px-4 pb-0">
-                        <a class="navbar-brand" href="home.jsp">
-                            <img src="images/main-logo.png" class="logo">
-                        </a>
-                        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link me-4 active" href="#billboard">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-4" href="#company-services">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-4" href="#smart-watches">Watches</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-4" href="#yearly-sale">Sale</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-4" href="shop.jsp">Shop</a>
-                            </li>
-                            </li>
-                            <li class="nav-item">
-                                <div class="user-items ps-5">
-                                    <ul class="d-flex justify-content-end list-unstyled">
-                                        <!--< <li class="search-item pe-3">
-                                           <a href="#" class="search-button">
-                                             <svg class="search">
-                                               <use xlink:href="#search"></use>
-                                             </svg>
-                                           </a>
-                                         </li>-->
-                                        <li class="pe-3">
-                                            <a href="user.jsp">
-                                                <svg class="user">
-                                                <use xlink:href="#user"></use>
-                                                </svg>
-                                            </a>
-                                            <%
-                                                UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
-                                                if (loginUser == null) {
-                                                    response.sendRedirect("login.jsp");
-                                                    return;
-                                                }
-                                            %>
-                                            <h1><%= loginUser.getFullName()%></h1>
-                                        </li>
-                                        <li>
-                                            <a href="cart.jsp">
-                                                <svg class="cart">
-                                                <use xlink:href="#cart"></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <form action="MainController" method="POST" id="logout-form">
-                                                <button  
-                                                    type="submit" name="action" value="Logout" id="logout-button">
-                                                    <img src="images/logout.jpg" alt="Logout" class="logout-icon">
-                                                </button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <section id="billboard" class="position-relative overflow-hidden bg-light-blue">
-        <div class="swiper main-swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-md-6">
-                                <div class="banner-content">
-                                    <h1 class="display-2 text-uppercase text-dark pb-5">Your Products Are Great.</h1>
-                                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="image-holder">
-                                    <img src="images/banner-image.png" alt="banner">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex flex-wrap align-items-center">
-                            <div class="col-md-6">
-                                <div class="banner-content">
-                                    <h1 class="display-2 text-uppercase text-dark pb-5">Technology Hack You Won't Get</h1>
-                                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="image-holder">
-                                    <img src="images/banner-image.png" alt="banner">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="swiper-icon swiper-arrow swiper-arrow-prev">
-            <svg class="chevron-left">
-            <use xlink:href="#chevron-left" />
-            </svg>
-        </div>
-        <div class="swiper-icon swiper-arrow swiper-arrow-next">
-            <svg class="chevron-right">
-            <use xlink:href="#chevron-right" />
-            </svg>
-        </div>
-    </section>
-    <section id="company-services" class="padding-large">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 pb-3">
-                    <div class="icon-box d-flex">
-                        <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="cart-outline">
-                            <use xlink:href="#cart-outline" />
-                            </svg>
-                        </div>
-                        <div class="icon-box-content">
-                            <h3 class="card-title text-uppercase text-dark">Free delivery</h3>
-                            <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 pb-3">
-                    <div class="icon-box d-flex">
-                        <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="quality">
-                            <use xlink:href="#quality" />
-                            </svg>
-                        </div>
-                        <div class="icon-box-content">
-                            <h3 class="card-title text-uppercase text-dark">Quality guarantee</h3>
-                            <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 pb-3">
-                    <div class="icon-box d-flex">
-                        <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="price-tag">
-                            <use xlink:href="#price-tag" />
-                            </svg>
-                        </div>
-                        <div class="icon-box-content">
-                            <h3 class="card-title text-uppercase text-dark">Daily offers</h3>
-                            <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 pb-3">
-                    <div class="icon-box d-flex">
-                        <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="shield-plus">
-                            <use xlink:href="#shield-plus" />
-                            </svg>
-                        </div>
-                        <div class="icon-box-content">
-                            <h3 class="card-title text-uppercase text-dark">100% secure payment</h3>
-                            <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="smart-watches" class="product-store padding-large position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="display-header d-flex justify-content-between pb-3">
-                    <h2 class="display-7 text-dark text-uppercase">Smart Watches</h2>
-                    <div class="btn-right">
-                        <a href="shop.jsp" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
-                    </div>
-                </div>
-                <div class="swiper product-watch-swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                                <div class="image-holder">
-                                    <img src="images/product-item6.jpg" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                    <h3 class="card-title text-uppercase">
-                                        <a href="#">Apple Watch Series 5</a>
-                                    </h3>
-                                    <span class="item-price text-primary">$870.0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                                <div class="image-holder">
-                                    <img src="images/product-item7.jpg" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">                                  
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                    <h3 class="card-title text-uppercase">
-                                        <a href="#">Apple Watch Series 8</a>
-                                    </h3>
-                                    <span class="item-price text-primary">$680.0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                                <div class="image-holder">
-                                    <img src="images/product-item8.jpg" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">                                   
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                    <h3 class="card-title text-uppercase">
-                                        <a href="#">Apple Watch Series 3</a>
-                                    </h3>
-                                    <span class="item-price text-primary">$750.0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                                <div class="image-holder">
-                                    <img src="images/product-item9.jpg" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                    <h3 class="card-title text-uppercase">
-                                        <a href="#">Apple Watch 4 LTE</a>
-                                    </h3>
-                                    <span class="item-price text-primary">$650.0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card position-relative">
-                                <div class="image-holder">
-                                    <img src="images/product-item10.jpg" alt="product-item" class="img-fluid">
-                                </div>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex justify-content-between pt-3">
-                                    <h3 class="card-title text-uppercase">
-                                        <a href="#">Apple Watch Series 6</a>
-                                    </h3>
-                                    <span class="item-price text-primary">$750.0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="swiper-pagination position-absolute text-center"></div>
-    </section>
-    <section id="yearly-sale" class="bg-light-blue overflow-hidden mt-5 padding-xlarge" style="background-image: url('images/single-image1.png');background-position: right; background-repeat: no-repeat;">
-        <div class="row d-flex flex-wrap align-items-center">
-            <div class="col-md-6 col-sm-12">
-                <div class="text-content offset-4 padding-medium">
-                    <h3>10% off</h3>
-                    <h2 class="display-2 pb-5 text-uppercase text-dark">New year sale</h2>
-                    <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Sale</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
+    <body>
 
-            </div>
-        </div>
-    </section>
-    <section id="testimonials" class="position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="review-content position-relative">
-                    <div class="swiper-icon swiper-arrow swiper-arrow-prev position-absolute d-flex align-items-center">
-                        <svg class="chevron-left">
-                        <use xlink:href="#chevron-left" />
-                        </svg>
-                    </div>
-                    <div class="swiper testimonial-swiper">
-                        <div class="quotation text-center">
-                            <svg class="quote">
-                            <use xlink:href="#quote" />
-                            </svg>
-                        </div>
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide text-center d-flex justify-content-center">
-                                <div class="review-item col-md-10">
-                                    <i class="icon icon-review"></i>
-                                    <blockquote>"Tempus oncu enim pellen tesque este pretium in neque, elit morbi sagittis lorem habi mattis Pellen tesque pretium feugiat vel morbi suspen dise sagittis lorem habi tasse morbi."</blockquote>
-                                    <div class="rating">
-                                        <svg class="star star-fill">
-                                        <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                        <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                        <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-half">
-                                        <use xlink:href="#star-half"></use>
-                                        </svg>
-                                        <svg class="star star-empty">
-                                        <use xlink:href="#star-empty"></use>
-                                        </svg>
-                                    </div>
-                                    <div class="author-detail">
-                                        <div class="name text-dark text-uppercase pt-2">Emma Chamberlin</div>
-                                    </div>
+        <header>
+            <div class="main_header header_transparent header-mobile-m">
+                <div class="header_container sticky-header">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-lg-2">
+                                <div class="logo">
+                                    <a href="home"><img src="images/logo.png" alt=""></a>
                                 </div>
                             </div>
-                            <div class="swiper-slide text-center d-flex justify-content-center">
-                                <div class="review-item col-md-10">
-                                    <i class="icon icon-review"></i>
-                                    <blockquote>"A blog is a digital publication that can complement a website or exist independently. A blog may include articles, short posts, listicles, infographics, videos, and other digital content."</blockquote>
-                                    <div class="rating">
-                                        <svg class="star star-fill">
-                                        <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                        <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-fill">
-                                        <use xlink:href="#star-fill"></use>
-                                        </svg>
-                                        <svg class="star star-half">
-                                        <use xlink:href="#star-half"></use>
-                                        </svg>
-                                        <svg class="star star-empty">
-                                        <use xlink:href="#star-empty"></use>
-                                        </svg>
-                                    </div>
-                                    <div class="author-detail">
-                                        <div class="name text-dark text-uppercase pt-2">Jennie Rose</div>
-                                    </div>
+
+                            <div class="col-lg-6">
+                                <!-- main-menu starts -->
+                                <div class="main_menu menu_two menu_position">
+                                    <nav>
+                                        <ul>
+                                            <li class="mega_items">
+                                                <a href="#">Collections <i class="fa fa-angle-down"></i></a>
+                                                <div class="mega_menu">
+                                                    <ul class="mega_menu_inner">
+                                                        <li style="color: black; font-size: 16px">
+
+                                                            <a href="refine?cid_refine=${0}">ALL</a>
+                                                        </li>
+                                                        <c:forEach items="${requestScope.category}" var="c">
+                                                            <li style="color: black; font-size: 16px">
+                                                                <a href="refine?cid_refine=${c.id}">${c.name}</a>
+                                                            </li>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li><a href="aboutus">About Us</a></li>
+                                            <li><a href="contact">Contact Us</a></li>
+                                                <c:if test="${sessionScope.account==null}">
+                                                <li>
+                                                    <a href="#">User <i class="fa fa-angle-down"></i></a>
+                                                    <ul class="sub_menu pages">
+                                                        <li><a href="login">Login In</a></li>
+                                                        <li><a href="register">Sign Up</a></li>
+                                                    </ul>
+                                                </li>
+                                            </c:if>
+                                            <c:if test="${sessionScope.account!=null}">
+                                                <li>
+                                                    <a href="profile">Profile</a> 
+                                                </li>
+                                            </c:if>
+                                        </ul>
+                                    </nav>
                                 </div>
+                                <!-- main menu ends -->
+                            </div>
+                            <div class="col-lg-4">
+                                <%@ include file="header_right.jsp"%>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-icon swiper-arrow swiper-arrow-next position-absolute d-flex align-items-center">
-                        <svg class="chevron-right">
-                        <use xlink:href="#chevron-right" />
-                        </svg>
+
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="swiper-pagination"></div>
-    </section>
-    <footer id="footer" class="overflow-hidden">
-        <div class="container">
-            <div class="row">
-                <div class="footer-top-area">
-                    <div class="row d-flex flex-wrap justify-content-between">
-                        <div class="col-lg-3 col-sm-6 pb-3">
-                            <div class="footer-menu">
-                                <img src="images/main-logo.png" alt="logo">
-                                <p>Nisi, purus vitae, ultrices nunc. Sit ac sit suscipit hendrerit. Gravida massa volutpat aenean odio erat nullam fringilla.</p>
-                                <div class="social-links">
-                                    <ul class="d-flex list-unstyled">
-                                        <li>
-                                            <a href="#">
-                                                <svg class="facebook">
-                                                <use xlink:href="#facebook" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <svg class="instagram">
-                                                <use xlink:href="#instagram" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <svg class="twitter">
-                                                <use xlink:href="#twitter" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <svg class="linkedin">
-                                                <use xlink:href="#linkedin" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <svg class="youtube">
-                                                <use xlink:href="#youtube" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6 pb-3">
-                            <div class="footer-menu text-uppercase">
-                                <h5 class="widget-title pb-2">Quick Links</h5>
-                                <ul class="menu-list list-unstyled text-uppercase">
-                                    <li class="menu-item pb-2">
-                                        <a href="#">Home</a>
+        </header>
+
+
+        <!-- slider section starts  -->
+        <section class="slider_section slider_section mb-66" style="margin-bottom: 0px">
+            <div class="slider_area owl-carousel">
+                <div class="single_slider d-flex align-items-center" style="background: url('images/slider/slider1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+                </div>
+                <div class="single_slider d-flex align-items-center" style="background: url('images/slider/slider2.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+                </div>
+                <div class="single_slider d-flex align-items-center" style="background: url('images/slider/slider3.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- product area starts -->
+
+        <div class="product_area product_area_two mb-65">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_title">
+                            <h2 class=text-shadow" style="font-size: 20px;"><span class="ani-fire">New Products 2023</span></h2>
+                            <div class="product_tab_btn">
+                                <ul class="nav" role="tablist">
+                                    <li>
+                                        <a href="home1?cid=${0}" class="${chid[0]==true?"active":""}">
+                                            ALL
+                                        </a>
                                     </li>
-                                    <li class="menu-item pb-2">
-                                        <a href="shop.jsp">Shop</a>
-                                    </li>
+                                    <c:forEach items="${requestScope.category}" var="c">
+                                        <li value="${c.id}" >
+                                            <a href="home1?cidYear=${c.id}" class="${c.id==cidYear?"active":""}">
+                                                ${c.name}
+                                            </a>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6 pb-3">
-                            <div class="footer-menu contact-item">
-                                <h5 class="widget-title text-uppercase pb-2">Contact Us</h5>
-                                <p>Do you have any queries or suggestions? <a href="mailto:">truongnnse183428@fpt.edu.vn</a>
-                                </p>
-                                <p>If you need support? Just give us a call. <a href="">+84 78 6315267</a>
-                                </p>
+                    </div>
+                </div>
+                <div  class="tab-content">
+                    <div class="tab-pane fade show active" id="Men" role="tabpanel">
+                        <div class="row">
+                            <div  class="product_carousel product_column4 owl-carousel">
+                                <c:forEach items="${requestScope.productsYear}" var="p">
+                                    <div class="col-lg-3">
+                                        <article class="single_product">
+                                            <figure>
+                                                <div class="product_thumb">
+                                                    <a href="#" class="primary_img">
+                                                        <img src="${p.image[0]}" alt="">
+                                                    </a>
+                                                    <a href="#" class="secondary_img"  height="270px">
+                                                        <img src="${p.image[1]}" alt="">
+                                                    </a>
+                                                    <div class="action_links">
+                                                        <ul>
+                                                            <li class="add_to_cart" 
+                                                                onclick="openModal('modal_box',${p.id}, '${p.image[0]}', '${p.image[1]}',
+                                                                                '${p.name}',${p.salePrice},${p.price}, '${p.describe}', '${p.classifyStr}',
+                                                                                '${p.supplier.getCompanyName()}')"">
+                                                                <a href="#" data-toggle="modal" data-target="#modal_box" title="Add to Cart">
+                                                                    <i class="fa fa-shopping-cart"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li class="wishlist">
+                                                                <a href="#" onclick="toggleWishlist(${p.id})" title="Add to Wishlist">
+                                                                    <i style="color: #f6692a" class="fa-solid fa-heart"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li class="quick_button" 
+                                                                onclick="openModal('modal_box',${p.id}, '${p.image[0]}', '${p.image[1]}',
+                                                                                '${p.name}',${p.salePrice},${p.price}, '${p.describe}', '${p.classifyStr}',
+                                                                                '${p.supplier.getCompanyName()}')" >
+                                                                <a href="#" data-toggle="modal" data-target="#modal_box" 
+                                                                   title="Quick View">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <figcaption class="product_content">
+                                                    <h4 class="product_name ani-fire" style="">
+                                                        <a href="#">${p.name}</a>
+                                                    </h4>
+
+                                                    <div class="price_box">
+                                                        <c:if test="${p.price != p.salePrice}">
+                                                            <span class="old_price" id="oldprice">Rs. ${p.price}</span>
+                                                        </c:if>
+                                                        <span class="current_price ani-fire">Rs. ${p.salePrice}
+                                                        </span>
+                                                    </div>
+                                                    <div class="product_rating">
+                                                        <ul>
+                                                            <c:set var="numstar" value="${p.starRating}"/>
+                                                            <c:forEach begin="1" end="${numstar}" step="1">
+                                                                <li>
+                                                                    <a href="#" style="color: orange">
+                                                                        <i class="fa fa-star"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </c:forEach>
+                                                            <c:if test="${numstar != 5}">
+                                                                <c:forEach begin="${numstar + 1}" end="5" step="1">
+                                                                    <li>
+                                                                        <a href="#" style="color: black">
+                                                                            <i class="fa fa-star"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                        </ul>
+                                                    </div>
+                                                </figcaption>
+                                            </figure>
+                                        </article>
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <hr>
-    </footer>
-    <div id="footer-bottom">
-        <div class="container">
-            <div class="row d-flex flex-wrap justify-content-between">
-                <div class="col-md-4 col-sm-6">
-                    <div class="Shipping d-flex">
-                        <p>We ship with:</p>
-                        <div class="card-wrap ps-2">
-                            <img src="images/dhl.png" alt="visa">
-                            <img src="images/shippingcard.png" alt="mastercard">
-                        </div>
+
+
+        <!-- product area ends -->
+
+
+        <!-- banner area starts -->
+        <div class="banner_area mb-66">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <figure class="single_banner">
+                            <div class="banner_thumb">
+                                <a href="#">
+                                    <img src="images/banner/banner1.jpg" alt="">
+                                </a>
+                                <div class="banner_content">
+                                    <h3>Sale up to</h3>
+                                    <h2>50%</h2>
+                                    <p>Perfume <span> & </span> Body Spray</p>
+                                </div>
+                            </div>
+                        </figure>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="payment-method d-flex">
-                        <p>Payment options:</p>
-                        <div class="card-wrap ps-2">
-                            <img src="images/visa.jpg" alt="visa">
-                            <img src="images/mastercard.jpg" alt="mastercard">
-                            <img src="images/paypal.jpg" alt="paypal">
-                        </div>
+                    <div class="col-lg-4 col-md-4">
+                        <figure class="single_banner">
+                            <div class="banner_thumb">
+                                <a href="#">
+                                    <img src="images/banner/banner2.jpg" alt="">
+                                </a>
+                                <div class="banner_content">
+                                    <h3>Sale up to</h3>
+                                    <h2>70%</h2>
+                                    <p>Deodrants</p>
+                                </div>
+                            </div>
+                        </figure>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="copyright">
-                        <p>© Copyright 2023 MiniStore. Design by <a href="https://templatesjungle.com/">TemplatesJungle</a>
-                        </p>
+                    <div class="col-lg-4 col-md-4">
+                        <figure class="single_banner">
+                            <div class="banner_thumb">
+                                <a href="#">
+                                    <img src="images/banner/banner3.jpg" alt="">
+                                </a>
+                                <div class="banner_content">
+                                    <h3>Sale up to</h3>
+                                    <h2>30%</h2>
+                                    <p>Cologne</p>
+                                </div>
+                            </div>
+                        </figure>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="js/plugins.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-</body>
+        <!-- banner area ends -->
+
+        <!-- home section area starts  -->
+
+        <div class="home_section_two color_two mb-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <div class="home_section_left">
+                            <!-- deals product area starts -->
+
+                            <div class="deals_product_area mb-68">
+                                <div class="section_title section_title_style2">
+                                    <h2><span class="ani-fire">Hot Deals</span></h2>
+                                    <i style="color: orangered; font-size: 22px; margin-left:5px" class="fa-solid fa-fire"></i>
+                                </div>
+                                <div class="row">
+                                    <div class="deals_carousel product_column1 owl-carousel">
+                                        <c:set var="hotDeal" value="${requestScope.hotDeal}"/>
+                                        <div class="col-lg-3">
+                                            <article class="single_product">
+                                                <figure>
+                                                    <div class="product_thumb">
+                                                        <a href="#" class="primary_img">
+                                                            <img src="${hotDeal.image[0]}" alt="">
+                                                        </a>
+                                                        <a href="#" class="secondary_img">
+                                                            <img src="${hotDeal.image[1]}" alt="">
+                                                        </a>
+                                                        <div class="action_links">
+                                                            <ul>
+                                                                <li class="add_to_cart"
+                                                                    onclick="openModal('modal_box', ${hotDeal.id}, '${hotDeal.image[0]}', '${hotDeal.image[1]}',
+                                                                                    '${hotDeal.name}',${hotDeal.salePrice},${hotDeal.price}, '${hotDeal.describe}', '${hotDeal.classifyStr}',
+                                                                                    '${hotDeal.supplier.getCompanyName()}')"
+                                                                    >
+                                                                    <a href="#" data-toggle="modal" data-target="#modal_box" title="Add to Cart">
+                                                                        <i class="fa fa-shopping-cart"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="wishlist">
+                                                                    <a href="#" onclick="toggleWishlist(${hotDeal.id})" title="Add to Wishlist">
+                                                                        <i style="color: #f6692a" class="fa-solid fa-heart"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="quick_button" >
+
+                                                                    <a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                       onclick="openModal('modal_box', ${hotDeal.id}, '${hotDeal.image[0]}', '${hotDeal.image[1]}',
+                                                                                       '${hotDeal.name}',${hotDeal.salePrice},${hotDeal.price}, '${hotDeal.describe}', '${hotDeal.classifyStr}',
+                                                                                       '${hotDeal.supplier.getCompanyName()}')" 
+                                                                       title="Quick view">
+                                                                        <i class="fa fa-eye" ></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <figcaption class="product_content">
+                                                        <!-- for deals timing -->
+                                                        <div class="product_timing">
+                                                            <div id="" data-countdown="2021/1/15">
+                                                                <div class="countdown_area">
+                                                                    <div class="single_countdown ani-fire">
+                                                                        <div id="day" class="countdown_number"></div>
+                                                                        <div class="countdown_title">days</div>
+                                                                    </div>
+                                                                    <div class="single_countdown ani-fire">
+                                                                        <div id="hour" class="countdown_number"></div>
+                                                                        <div class="countdown_title">Hours</div>
+                                                                    </div>
+                                                                    <div class="single_countdown ani-fire">
+                                                                        <div id="minutes" class="countdown_number"></div>
+                                                                        <div class="countdown_title">mins</div>
+                                                                    </div>
+                                                                    <div class="single_countdown ani-fire">
+                                                                        <div id="sec" class="countdown_number"></div>
+                                                                        <div class="countdown_title">secs</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <h4 class="product_name ani-fire">
+                                                            <a href="#">${hotDeal.name}</a>
+                                                        </h4>
+
+                                                        <div class="price_box">
+                                                            <span class="old_price">Rs.${hotDeal.price}
+                                                            </span>
+                                                            <span class="current_price ani-fire">Rs.${hotDeal.salePrice}</span>
+                                                        </div>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- deals product area ends -->
+
+                            <!-- small product area starts -->
+
+                            <div class="small_product_area mb-68">
+                                <div class="section_title section_title_style2">
+                                    <h2>Giftset</h2>
+                                </div>
+                                <div class="small_product_container sidebar_product_column1 owl-carousel">
+                                    <c:set var="breakLoop" value="false" />
+                                    <c:forEach var= "j" begin="1" end="2" step="1" >
+                                        <c:set var="count" value="0" />
+                                        <div class="small_product_list">
+                                            <c:if test="${breakLoop == true}">
+                                                <c:set var="count" value="4"/>
+                                            </c:if>
+                                            <c:forEach items="${requestScope.giftSets}" var="giftSet" varStatus="status" >
+                                                <c:if test="${(not breakLoop && count < 3) || (breakLoop && 3 < count && count < 7)}">
+                                                    <c:if test="${count == status.index}">
+                                                        <article class="single_product" data-toggle="modal" data-target="#modal_box">
+                                                            <figure 
+                                                                onclick="openModal('modal_box', ${giftSet.id}, '${giftSet.image[0]}', '${giftSet.image[1]}',
+                                                                                '${giftSet.name}',${giftSet.salePrice},${giftSet.price}, '${giftSet.describe}', '${giftSet.classifyStr}',
+                                                                                '${giftSet.supplier.getCompanyName()}')">
+                                                                <div class="product_thumb">
+                                                                    <a href="#" class="primary_img">
+                                                                        <img src="${giftSet.image[0]}" alt="">
+                                                                    </a>
+                                                                    <a href="#" class="secondary_img"><img
+                                                                            src="${giftSet.image[1]}" alt=""></a>
+                                                                </div>
+                                                                <figcaption class="product_content">
+                                                                    <h4 class="product_name">
+                                                                        <a href="#">${giftSet.name}</a>
+                                                                    </h4>
+                                                                    <div class="product_rating">
+                                                                        <ul>
+                                                                            <c:set var="numstar" value="${giftSet.starRating}"/>
+                                                                            <c:forEach begin="1" end="${numstar}" step="1">
+                                                                                <li>
+                                                                                    <a href="#" style="color: orange">
+                                                                                        <i class="fa fa-star"></i>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </c:forEach>
+                                                                            <c:if test="${numstar != 5}">
+                                                                                <c:forEach begin="${numstar + 1}" end="5" step="1">
+                                                                                    <li>
+                                                                                        <a href="#" style="color: black">
+                                                                                            <i class="fa fa-star"></i>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                </c:forEach>
+                                                                            </c:if>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="price_box">
+                                                                        <c:if test="${i.price != i.salePrice}">
+                                                                            <span class="old_price">Rs. ${i.price}</span>
+                                                                        </c:if>
+                                                                        <span class="current_price">Rs. ${giftSet.salePrice}</span>
+                                                                    </div>
+                                                                </figcaption>
+                                                            </figure>
+                                                        </article>
+                                                        <c:set var="count" value="${count + 1}" />
+                                                    </c:if>
+                                                    <c:if test="${count == 3}">
+                                                        <c:set var="breakLoop" value="true" />
+                                                    </c:if>
+                                                </c:if>
+
+                                            </c:forEach>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+
+                            <!-- small product area ends -->
+
+                            <c:set var="cat" value="${requestScope.category}"/>
+                            <div class="testimonial_style_two mb-60 rightleft">
+                                <div class="testimonial_container">
+                                    <div class="section_title section_title_style2">
+                                        <h2 style="font-size: 20px">Brand</h2>
+                                    </div>
+                                    <form id="f3" action="refine" method="get">
+                                        <div class="" style="margin: 0">
+                                            <h2 style="font-size: 16px;"></h2>
+                                            <fieldset class="responsiveFacets_sectionContent " aria-hidden="false">
+                                                <div href="#" class="responsiveFacets_sectionItemLabel" onclick="pageRefine(0)">
+                                                    <label class="responsiveFacets_sectionItem" for="brand">
+                                                        ALL (${listAll.size()})
+                                                    </label>
+                                                </div>
+                                                <c:forEach begin="0" end="${cat.size()-1}" var="i">
+                                                    <div class="responsiveFacets_sectionItemLabel" onclick="pageRefine(${i + 1})">
+                                                        <label href="#" class="responsiveFacets_sectionItem" for="brand" >
+                                                            ${cat.get(i).name} (${cat.get(i).getTotalProduct()})
+                                                        </label>
+                                                    </div>
+                                                </c:forEach>
+                                            </fieldset>
+                                        </div>
+                                        <input type="hidden" value="" name="cid_refine" id="submitt">
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- testimonial section ends -->
+
+                            <!-- Newsletter section starts -->
+
+                            <div class="newsletter_style2" id="newsletter">
+                                <div class="newsletter_container">
+                                    <div class="section_title section_title_style2">
+                                        <h2>Newsletter</h2>
+                                    </div>
+                                    <div class="subscribe_form">
+                                        <form action="">
+                                            <input id="emailDiscount" type="email" autocomplete="off" placeholder="example@gmail.com">
+                                            <button type="button" onclick="submitEmail()">
+                                                <i class="fa fa-envelope-o"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="newsletter_content">
+                                        <p>Sign up to get news and get 25% off instantly.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Newsletter section ends -->
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9 col-md-12">
+                        <div class="home_section_right">
+                            <!-- product area starts  -->
+
+                            <div class="product_area mb-65">
+                                <div class="section_title section_title_style2">
+                                    <h2>TOP 5 BEST SELLERS</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="product_carousel product_column3 owl-carousel">
+                                        <c:forEach items="${requestScope.productsTopSellers}" var="t">
+                                            <div class="col-lg-3">
+                                                <article class="single_product">
+                                                    <figure>
+                                                        <div class="product_thumb">
+                                                            <a href="#" class="primary_img">
+                                                                <img src="${t.image[0]}" alt="">
+                                                            </a>
+                                                            <a href="#" class="secondary_img">
+                                                                <img src="${t.image[1]}" alt="">
+                                                            </a>
+
+                                                            <div class="action_links">
+                                                                <ul>
+                                                                    <li class="add_to_cart"
+                                                                        onclick="openModal('modal_box',${t.id}, '${t.image[0]}', '${t.image[1]}',
+                                                                                        '${t.name}',${t.salePrice},${t.price}, '${t.describe}', '${t.classifyStr}',
+                                                                                        '${t.supplier.getCompanyName()}')">
+                                                                        <a href="#" data-toggle="modal" data-target="#modal_box" title="Add to Cart">
+                                                                            <i class="fa fa-shopping-cart"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="wishlist">
+                                                                        <a href="#" onclick="toggleWishlist(${t.id})" title="Add to Wishlist">
+                                                                            <i style="color: #f6692a" class="fa-solid fa-heart"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="quick_button" 
+                                                                        onclick="openModal('modal_box',${t.id}, '${t.image[0]}', '${t.image[1]}',
+                                                                                        '${t.name}',${t.salePrice},${t.price}, '${t.describe}', '${t.classifyStr}',
+                                                                                        '${t.supplier.getCompanyName()}')" >
+                                                                        <a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                           title="Quick View">
+                                                                            <i class="fa fa-eye"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <figcaption class="product_content">
+                                                            <h4 class="product_name">
+                                                                <a href="#">${t.name} </a>
+                                                            </h4>
+                                                            <div class="${t.starRating}">
+                                                                <ul style="display: flex">
+                                                                    <c:set var="numstar" value="${t.starRating}"/>
+                                                                    <c:forEach begin="1" end="${numstar}" step="1">
+                                                                        <li>
+                                                                            <a href="#" style="color: orange">
+                                                                                <i class="fa fa-star"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </c:forEach>
+                                                                    <c:if test="${numstar != 5}">
+                                                                        <c:forEach begin="${numstar + 1}" end="5" step="1">
+                                                                            <li>
+                                                                                <a href="#" style="color: black">
+                                                                                    <i class="fa fa-star"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                        </c:forEach>
+                                                                    </c:if>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="price_box">
+                                                                <span class="old_price">Rs. ${t.price}</span>
+                                                                <span class="current_price">Rs.${t.salePrice}</span>
+                                                            </div>
+                                                        </figcaption>
+                                                    </figure>
+                                                </article>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- product area ends -->
+
+                            <!-- Long banner area starts  -->
+                            <div class="banner_area banner_style_two mb-58">
+                                <div class="single_banner">
+                                    <div class="banner_thumb">
+                                        <a href="#">
+                                            <img src="images/banner/banner4.png" alt="">
+
+                                        </a>
+                                        <div class="banner_content">
+                                            <h3 style="color: tomato;">Sale up to </h3>
+                                            <h2>45%</h2>
+                                            <p>Versace</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Long Banner area ends -->
+
+                            <!-- product section starts  -->
+                            <div class="product_area" >
+                                <div class="section_title section_title_style2">
+                                    <h2>On Sale</h2>
+                                </div>
+
+                                <c:set var="page" value="${requestScope.page}"/>
+                                <div class="pagination">
+                                    <c:forEach begin="${1}" end="${requestScope.numberpage}" var="i">
+                                        <a class="linkLoad ${i==1?"active":""}" id="numberPage" onclick="loadMore(this)" >${i}</a>
+                                    </c:forEach>
+                                </div>
+
+                                <div id="contentt" class="row">
+                                    <c:set var="proA" value=""/>
+                                    <c:forEach items="${requestScope.productPage}" var="i">
+                                        <div class="product_items col-lg-4" style="margin: 30px 0">
+                                            <article class="single_product">
+                                                <figure>
+                                                    <div class="product_thumb">
+                                                        <a href="#" class="primary_img">
+                                                            <img src="${i.image[0]}" alt="">
+                                                        </a>
+                                                        <a href="#" class="secondary_img">
+                                                            <img src="${i.image[1]}" alt="">
+                                                        </a>
+
+                                                        <div class="action_links">
+                                                            <ul>
+                                                                <li class="add_to_cart"
+                                                                    onclick="openModal('modal_box',${i.id}, '${i.image[0]}', '${i.image[1]}',
+                                                                                    '${i.name}',${i.salePrice},${i.price}, '${i.describe}', '${i.classifyStr}',
+                                                                                    '${i.supplier.getCompanyName()}')">
+                                                                    <a href="#" data-toggle="modal" data-target="#modal_box" title="Add to Cart">
+                                                                        <i class="fa fa-shopping-cart"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="wishlist">
+                                                                    <a href="#" onclick="toggleWishlist(${i.id})" title="Add to Wishlist">
+                                                                        <i style="color: #f6692a" class="fa-solid fa-heart"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="quick_button" 
+                                                                    onclick="openModal('modal_box', ${i.id}, '${i.image[0]}', '${i.image[1]}',
+                                                                                    '${i.name}', ${i.salePrice}, ${i.price}, '${i.describe}', '${i.classifyStr}',
+                                                                                    '${i.supplier.getCompanyName()}')" >
+                                                                    <a href="#" data-toggle="modal"
+                                                                       data-target="#modal_box" title="Quick View">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <figcaption class="product_content">
+                                                        <h4 class="product_name">
+                                                            <a href="#">${i.name}</a>
+                                                        </h4>
+                                                        <div class="product_rating">
+                                                            <ul>
+                                                                <c:set var="numstar" value="${i.starRating}"/>
+                                                                <c:forEach begin="1" end="${numstar}" step="1">
+                                                                    <li>
+                                                                        <a href="#" style="color: orange">
+                                                                            <i class="fa fa-star"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                </c:forEach>
+                                                                <c:if test="${numstar != 5}">
+                                                                    <c:forEach begin="${numstar + 1}" end="5" step="1">
+                                                                        <li>
+                                                                            <a href="#" style="color: black">
+                                                                                <i class="fa fa-star"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </c:forEach>
+                                                                </c:if>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="price_box">
+                                                            <c:if test="${i.price != i.salePrice}">
+                                                                <span class="old_price">Rs. ${i.price}</span>
+                                                            </c:if>
+                                                            <span class="current_price">Rs. ${i.salePrice}</span>
+                                                        </div>
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- product section ends -->
+            </div>
+        </div>
+
+
+        <!-- home section area ends -->
+
+        <!-- blog section ends -->
+
+        <footer class="footer_widgets color_two">
+            <div class="footer_top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-7">
+                            <div class="widgets_container contact_us">
+                                <div class="footer_logo">
+                                    <a href="#"><img src="images/logo.png" alt="Logo"></a>
+                                </div>
+                                <div class="footer_desc">
+                                    <p>Get all types of perfume from us within 2 day delivery. We can even order the
+                                        perfumes which are not in our database. To do that kindly send a E-mail to the
+                                        company's mail id.</p>
+                                </div>
+                                <p>
+                                    <span>Address :</span> Address: 61/2 Quang Trung, Ward 10
+                                    Go Vap District, Ho Chi Minh city
+                                </p>
+                                <p><span>Email :</span> <a href="#">perfumeparadisevn@gmail.com</a></p>
+                                <p><span>Phone :</span> <a href="tel: +91 8888884444">1900 9090</a> </p>
+                                <p style="margin-top: 20px">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.60994153052!2d106.80730807586922!3d10.841132857995166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2sFPT%20University%20HCMC!5e0!3m2!1sen!2s!4v1703229023591!5m2!1sen!2s" width="330" height="200" style="border:1px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+
+                                    </iframe>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-5">
+                            <div class="widgets_container widget_menu">
+                                <h3>Information</h3>
+                                <div class="footer_menu">
+                                    <ul>
+                                        <li><a href="home">Home</a></li>
+                                        <li><a href="aboutus">About Us</a></li>
+                                        <li><a href="refine?cid_refine=0">Shopping</a></li>
+                                        <li><a href="refine?cid_refine=5">Gift set</a></li>
+                                        <li><a href="profile">My Account</a></li>
+                                        <li><a href="viewcart">Order</a></li>
+                                        <li><a href="viewwishlist">Wish List</a></li>
+                                        <li><a href="contact">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="widgets_container widgets_p_product">
+                                <h3>Featured Products</h3>
+                                <div class="small_product_container small_product_column1 owl-carousel">
+                                    <div class="small_product_list">
+                                        <c:forEach items="${requestScope.productFooter1}" var="p">
+                                            <article class="single_product">
+                                                <figure>
+                                                    <div class="product_thumb">
+                                                        <a href="#" class="primary_img">
+                                                            <img src="${p.image[0]}" alt="">
+                                                        </a>
+                                                        <a href="#" class="secondary_img">
+                                                            <img src="${p.image[1]}" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <figcaption class="product_content">
+                                                        <h4 class="product_name">
+                                                            <a href="#" style="color: white;">${p.name}</a>
+                                                        </h4>
+
+                                                        <div class="price_box">
+                                                            <c:if test="${i.price != i.salePrice}">
+                                                                <span class="old_price" style="color: white;">Rs. ${p.price}</span>
+                                                            </c:if>
+                                                            <span class="current_price" style="color: white;">Rs. ${p.salePrice}</span>
+                                                        </div>
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="small_product_list">
+                                        <c:forEach items="${requestScope.productFooter2}" var="p">
+                                            <article class="single_product">
+                                                <figure>
+                                                    <div class="product_thumb">
+                                                        <a href="#" class="primary_img">
+                                                            <img src="${p.image[0]}" alt="">
+                                                        </a>
+                                                        <a href="#" class="secondary_img">
+                                                            <img src="${p.image[1]}" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <figcaption class="product_content">
+                                                        <h4 class="product_name">
+                                                            <a href="#" style="color: white;">${p.name}</a>
+                                                        </h4>
+
+                                                        <div class="price_box">
+                                                            <c:if test="${i.price != i.salePrice}">
+                                                                <span class="old_price" style="color: white;">Rs. ${p.price}</span>
+                                                            </c:if>
+                                                            <span class="current_price" style="color: white;">Rs. ${p.salePrice}</span>
+                                                        </div>
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="widgets_container widgets_p_product">
+                                <h3>Most Viewed Products</h3>
+                                <div class="small_product_container small_product_column1 owl-carousel">
+                                    <div class="small_product_list">
+                                        <c:forEach items="${requestScope.productFooter2}" var="p">
+                                            <article class="single_product">
+                                                <figure>
+                                                    <div class="product_thumb">
+                                                        <a href="#" class="primary_img">
+                                                            <img src="${p.image[0]}" alt="">
+                                                        </a>
+                                                        <a href="#" class="secondary_img">
+                                                            <img src="${p.image[1]}" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <figcaption class="product_content">
+                                                        <h4 class="product_name">
+                                                            <a href="#" style="color: white;">${p.name}</a>
+                                                        </h4>
+
+                                                        <div class="price_box">
+                                                            <c:if test="${i.price != i.salePrice}">
+                                                                <span class="old_price" style="color: white;">Rs. ${p.price}</span>
+                                                            </c:if>
+                                                            <span class="current_price" style="color: white;">Rs. ${p.salePrice}</span>
+                                                        </div>
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="small_product_list">
+                                        <article class="single_product">
+
+
+                                            <figure>
+                                                <div class="product_thumb">
+                                                    <a href="#" class="primary_img">
+                                                        <img src="images/best-product/B4-1.png" alt="">
+                                                    </a>
+                                                    <a href="#" class="secondary_img"><img
+                                                            src="images/best-product/B4-2.png" alt=""></a>
+                                                </div>
+                                                <figcaption class="product_content">
+                                                    <h4 class="product_name">
+                                                        <a href="#" style="color: white;">Mugler Aura Women</a>
+                                                    </h4>
+
+                                                    <div class="price_box">
+                                                        <span class="old_price">Rs. 7999</span>
+                                                        <span class="current_price" style="color: white;">Rs. 7550</span>
+                                                    </div>
+                                                </figcaption>
+                                            </figure>
+                                        </article>
+                                        <article class="single_product">
+
+
+                                            <figure>
+                                                <div class="product_thumb">
+                                                    <a href="#" class="primary_img">
+                                                        <img src="images/best-product/B5-1.png" alt="">
+                                                    </a>
+                                                    <a href="#" class="secondary_img"><img
+                                                            src="images/best-product/B5-2.png" alt=""></a>
+                                                </div>
+                                                <figcaption class="product_content">
+                                                    <h4 class="product_name">
+                                                        <a href="#" style="color: white;">Jimmy Choo Women Fever</a>
+                                                    </h4>
+
+                                                    <div class="price_box">
+                                                        <span class="old_price">Rs. 7499</span>
+                                                        <span class="current_price" style="color: white;">Rs. 7200</span>
+                                                    </div>
+                                                </figcaption>
+                                            </figure>
+                                        </article>
+                                        <article class="single_product">
+
+
+                                            <figure>
+                                                <div class="product_thumb">
+                                                    <a href="#" class="primary_img">
+                                                        <img src="images/best-product/B6-1.png" alt="">
+                                                    </a>
+                                                    <a href="#" class="secondary_img"><img
+                                                            src="images/best-product/B6-2.png" alt=""></a>
+                                                </div>
+                                                <figcaption class="product_content">
+                                                    <h4 class="product_name">
+                                                        <a href="#" style="color: white;">Dloce & Gabbana Women </a>
+                                                    </h4>
+
+                                                    <div class="price_box">
+                                                        <span class="old_price">Rs. 7499</span>
+                                                        <span class="current_price" style="color: white;">Rs. 7200</span>
+                                                    </div>
+                                                </figcaption>
+                                            </figure>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <jsp:include page="footer.jsp"/>
+        </footer>
+
+        <div class="modal fade" id="modal_box" role="dialog"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>   
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
+        <script src="js/countdown.js"></script>
+        <script src="js/clickevents.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+        <script src="js/main.js"></script>
+        <script type="text/javascript">
+                                                                        function submitEmail() {
+                                                                            var text = document.querySelector("#emailDiscount").value;
+                                                                            $.ajax({
+                                                                                url: "/PefumeMN-Website/email",
+                                                                                type: "get",
+                                                                                data: {
+                                                                                    txt: text
+                                                                                },
+                                                                                success: function (data) {
+                                                                                    var row = document.getElementById("newsletter");
+                                                                                    row.innerHTML = data;
+                                                                                },
+                                                                                error: function (xhr) {
+                                                                                }
+                                                                            });
+                                                                        }
+        </script>
+    </body>
+
 </html>

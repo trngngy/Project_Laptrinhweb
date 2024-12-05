@@ -1,121 +1,95 @@
-<%-- 
-    Document   : login
-    Created on : Jun 14, 2024, 10:47:47 AM
-    Author     : nguye
---%>
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login Form</title>
+    <link rel="icon" href="images/logo1.png"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style_1.css">
+    <style>
+        i[id='iconsee']:hover {
+            color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login Page</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap">
-        <style>
-            .form {
-                height: 520px;
-                width: 400px;
-                background-color: #ffffff;
-                position: absolute;
-                transform: translate(-50%, -50%);
-                top: 50%;
-                left: 50%;
-                border-radius: 10px;
-                backdrop-filter: blur(10px);
-                border: 2px solid #dddddd;
-                box-shadow: 0 0 40px rgba(8, 7, 16, 0.1);
-                padding: 50px 35px;
-            }
-            .form * {
-                font-family: 'Poppins', sans-serif;
-                color: #333333;
-                letter-spacing: 0.5px;
-                outline: none;
-                border: none;
-            }
-            .form h3 {
-                font-size: 32px;
-                font-weight: 500;
-                line-height: 42px;
-                text-align: center;
-                color: #333333;
-            }
-            input {
-                display: block;
-                height: 50px;
-                width: 380px;
-                background-color: #f7f7f7;
-                border-radius: 3px;
-                padding: 0 10px;
-                margin-top: 8px;
-                font-size: 14px;
-                font-weight: 300;
-                border: 1px solid #dddddd;
-            }
-            ::placeholder {
-                color: #aaaaaa;
-            }
-            .button {
-                width: 100%;
-                background-color: #3399ff;
-                color: #ffffff;
-                font-size: 18px;
-                font-weight: 600;
-                border-radius: 5px;
-                cursor: pointer;
-                margin-top: 20px;
-                padding: 15px 0;
-            }
-            .button:hover {
-                background-color: #1552b0;
-            }
-            label {
-                display: block;
-                margin-top: 30px;
-                font-size: 16px;
-                font-weight: 500;
-                color: #333333;
-            }
-            body {
-                background-color: #f7f7f7;
-            }
-            .background {
-                width: 430px;
-                height: 520px;
-                position: absolute;
-                transform: translate(-50%, -50%);
-                left: 50%;
-                top: 50%;
-            }
-            .error-message h1 {
-                margin-top: 10px;
-                font-size: 14px;
-                text-align: center;
-                color: #ff512f;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="form">
-            <h3>Login</h3>
-            <form action="MainController" method="POST">
-                <label for="userid">UserID</label>
-                <input type="text" placeholder="Enter your UserID" name="UserID"/></br>
-                <label for="password">Password</label>
-                <input type="password" placeholder="Enter your Password" name="Password"/></br>
-                <input class="button" type="submit" name="action" value="Login"/>
-                <input class="button" type="submit" name="action" value="Sign Up" /> <%
-                    String error = (String) request.getAttribute("ERROR");
-                    if (error == null) {
-                        error = "";
-                    }
-                %>
-                <div class="error-message">  
-                    <h1><%= error%></h1>
+<body>
+    <section class="fxt-template-animation fxt-template-layout1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-12 fxt-bg-color">
+                    <div class="fxt-content" >
+                        <div class="fxt-header" style="margin-bottom: 15px">
+                            <a href="home" class="fxt-logo"><img src="images/logo.png" alt="Logo"></a>
+                            <div class="fxt-page-switcher">
+                                <a href="login" class="switcher-text1 active">Log In</a>
+                                <a href="register" class="switcher-text1">Register</a>
+                            </div>
+                        </div>
+                        <div class="fxt-form">
+                            <h2 style="color: red">Log In</h2>
+                            <p>Log in to continue in our website</p>
+                            <h5 style="color: red">${requestScope.error}</h5>
+                            <h5 style="color: green">${requestScope.successfully}</h5>
+                            <form action="login" method="post">
+                                <div class="form-group">
+                                    <div class="fxt-transformY-50 fxt-transition-delay-1">
+                                        <input type="text" class="form-control" name="username" placeholder="UserName" required value="${requestScope.uName}">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="fxt-transformY-50 fxt-transition-delay-2">
+                                        <input id="pass" type="${requestScope.check == null ? 'password' : 'text'}" class="form-control" name="password" placeholder="${requestScope.check == null ? 'Password' : 'Enter new pass word'}" required value="${uPass}">
+                                        <i id="iconsee" style="cursor: pointer" onclick="changeIcon(this)" class="fa-solid fa-eye-slash"></i>
+                                    </div>
+                                </div>
+                                <div class="fxt-transformY-50 fxt-transition-delay-2" style="display: flex; justify-content: space-between">
+                                    <div>
+                                        <input ${reMem==null?"":"checked"} id="remember" type="checkbox" name="remember" style=";margin-right: 6px; width: 15px; height: 15px">
+                                        <label style="font-size: 15px" for="remember">Remember me</label>
+                                    </div>
+                                    <div>
+                                        <a style="color: black" href="forgot" class="switcher-text2">Forgot Password</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="fxt-transformY-50 fxt-transition-delay-3">
+                                        <div class="fxt-content-between">
+                                            <button type="submit" class="fxt-btn-fill">Log in</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </form>
+                <div class="col-md-6 col-12 fxt-none-767 fxt-bg-img" data-bg-image="images/figure/aa.jpg"></div>
+            </div>
         </div>
-    </body>
+    </section>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/validator.min.js"></script>
+    <script src="js/main_1.js"></script>
+    <script>
+                                            function changeIcon(obj) {
+                                                var inputP = document.querySelector("#pass");
+                                                console.log(inputP)
+                                                if (obj.className == 'fa-solid fa-eye-slash') {
+                                                    obj.className = 'fa-solid fa-eye';
+                                                    inputP.type = 'text';
+                                                } else {
+                                                    obj.className = 'fa-solid fa-eye-slash';
+                                                    inputP.type = 'password';
+                                                }
+                                            }
+    </script>
+</body>
+
+
 </html>
