@@ -76,7 +76,6 @@ public class Home1Servlet extends HttpServlet {
         List<Product> productFooter1 = p.getFeaturedProducts();
         List<Product> productFooter2 = p.getFeaturedProducts();
 
-        //phần product 2023
         int cidYear;
         if (cidYear_raw != null) {
             cidYear = Integer.parseInt(cidYear_raw);
