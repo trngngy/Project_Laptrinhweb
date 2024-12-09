@@ -252,14 +252,6 @@
 
                 <div id="section_contact" class="page-section nobottompadding notoppadding"  style="padding: 0">
                     <div class="row noleftmargin norightmargin common-height">
-                        <div class='index_map col-md-6 col-sm-6 hidden-xs nopadding'>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.60994153052!2d106.80730807586922!3d10.841132857995166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2sFPT%20University%20HCMC!5e0!3m2!1sen!2s!4v1703229023591!5m2!1sen!2s"
-                                width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
-
-                        </div>
-
-                        <!-- Google Map End -->
 
                         <div class="col-md-6 col-sm-6" style="background-color: #383c44">
                             <div class="max-height" style='padding: 60px 30px'>

@@ -11,14 +11,6 @@
                 <i style="margin-right: 10px; font-size: 18px" class="fas fa-tachometer-alt fa-fw me-3"></i>
                 <span style="font-size: 16px; font-weight: 600">Main dashboard</span>
             </a>
-            <a href="weekrevenue" class="list-group-item list-group-item-action" style="margin-top: 10px">
-                <i style="margin-right: 10px; font-size: 18px" class="fas fa-chart-pie fa-fw me-3"></i>
-                <span style="font-size: 16px; font-weight: 600">Revenue by week</span>
-            </a>
-            <a href="mothlyrevenue" class="list-group-item list-group-item-action" style="margin-top: 10px">
-                <i style="margin-right: 10px; font-size: 18px" class="fas fa-chart-bar fa-fw me-3"></i>
-                <span style="font-size: 16px; font-weight: 600">Revenue by month</span>
-            </a>
             <a href="invoice" class="list-group-item list-group-item-action" style="margin-top: 10px">
                 <i style="margin-right: 10px; font-size: 18px" class="fas fa-file-invoice-dollar fa-fw me-3"></i>
                 <span style="font-size: 16px; font-weight: 600">Invoice</span></a>
